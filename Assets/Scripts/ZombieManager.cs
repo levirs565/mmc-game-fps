@@ -5,18 +5,31 @@ using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
-    //private uint mNextId = 0;
-    //private HashSet<ZombieController> mZombies;
+    private List<ZombieController> mZombies;
+
+    void Awake()
+    {
+        mZombies = new List<ZombieController>(); 
+    }
 
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void RegisterZombie(ZombieController controller)
+    {
+        mZombies.Add(controller);
+    }
+
+    public void UnregisterZombie(ZombieController controller)
+    {
+        mZombies.Remove(controller);
     }
 
     List<ZombieController> GetZombiesAt(Vector3 center)
@@ -44,6 +57,15 @@ public class ZombieManager : MonoBehaviour
         {
             if (zombie.isDead) continue;
             zombie.StartDead();
+        }
+    }
+
+    public void SlowDownAt(Vector3 center)
+    {
+        foreach (var zombie in GetZombiesAt(center))
+        {
+            if (zombie.isDead) continue;
+            zombie.SlowDown();
         }
     }
 }
