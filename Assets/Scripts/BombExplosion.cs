@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class BombExplosion : MonoBehaviour
 {
     private ZombieManager mZombieManager;
 
