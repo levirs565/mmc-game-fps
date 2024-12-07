@@ -17,18 +17,18 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!mOnGround) return;
-        if (Input.GetButtonDown("Jump"))
+        if (mOnGround && Input.GetButtonDown("Jump"))
         {
-            mRigidBody.AddForce(new Vector3(0, 250f, 0));
+            mRigidBody.AddForce(new Vector3(0, 10000f, 0));
+            mAnimator.SetBool("Jump", true);
             return;
         }
 
         float newSpeed = 0;
-     
+    
         newSpeed = Input.GetAxis("Vertical") * 5f;
 
-        mLastSpeed = Mathf.Lerp(mLastSpeed, newSpeed, Time.deltaTime * 2f);
+        mLastSpeed = mOnGround ? Mathf.Lerp(mLastSpeed, newSpeed, Time.deltaTime * 2f) : 0;
         mAnimator.SetFloat("Speed", mLastSpeed);
         mAnimator.SetFloat("MotionSpeed", 1f);
 
@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             mOnGround = true;
+            mAnimator.SetBool("Grounded", true);
+            mAnimator.SetBool("Jump", false);
         }
     }
 
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             mOnGround = false;
+            mAnimator.SetBool("Grounded", false);
         }
     }
 }

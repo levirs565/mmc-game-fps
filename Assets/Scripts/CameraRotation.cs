@@ -23,8 +23,8 @@ public class CameraRotation : MonoBehaviour
         yaw += dx * sensitity * Time.deltaTime;
         pitch -= dy * sensitity * Time.deltaTime;
 
-        //yaw = Mathf.Clamp(yaw, -89f, 89f);
-        pitch = Mathf.Clamp(pitch, -45f, 45f);
+        //yaw = Mathf.Clamp(yaw, -10f, 89f);
+        pitch = Mathf.Clamp(pitch, -30f, 10f);
 
         transform.localRotation = Quaternion.Euler(0, yaw, 0);
         mCameraTransform.localRotation = Quaternion.Euler(pitch, 0, 0);

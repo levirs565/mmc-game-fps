@@ -10,6 +10,7 @@ public class ZombieController : MonoBehaviour
     private ZombieManager mZombieManager;
     private float mDefaultSpeed;
     private Coroutine mResetSlowDownCoroutine;
+    private GameObject mPlayerObject;
 
     public Animator animator;
     public bool isDead { get; private set; }
@@ -21,8 +22,9 @@ public class ZombieController : MonoBehaviour
         mZombieManager = FindFirstObjectByType<ZombieManager>();
         mZombieManager.RegisterZombie(this);
 
+        mPlayerObject = GameObject.Find("PlayerCharacter");
+
         mNavMeshAgent = GetComponent<NavMeshAgent>();
-        mNavMeshAgent.SetDestination(new Vector3(3.93f, 0, -2.63f));
 
         isDead = false;
 
@@ -65,7 +67,7 @@ public class ZombieController : MonoBehaviour
 
     void Update()
     {
-          
+        mNavMeshAgent.SetDestination(mPlayerObject.transform.position);  
     }
 
     private void LateUpdate()
